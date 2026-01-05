@@ -1,0 +1,8 @@
+{
+  "tasks": [
+    { "id": 1, "title": "Remixの基本を学ぶ", "completed": true },
+    { "id": 2, "title": "タスクマネージャーを作成する", "completed": false },
+    { "id": 3, "title": "JSONからデータを読み込む", "completed": false }
+  ],
+  "nextId": 4
+}
