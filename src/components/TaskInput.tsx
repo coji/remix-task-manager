@@ -5,29 +5,27 @@ interface Props {
 }
 
 export default function TaskInput(this: Handle, { onAdd }: Props) {
-  let value = ''
+  let inputEl: HTMLInputElement | null = null
 
   const handleSubmit = () => {
-    if (value.trim()) {
-      onAdd(value.trim())
-      value = ''
-      this.update()
+    if (inputEl?.value.trim()) {
+      onAdd(inputEl.value.trim())
+      inputEl.value = ''
     }
   }
 
   return () => (
     <div class="mb-5 flex gap-2">
       <input
+        connect={(el: HTMLInputElement) => {
+          inputEl = el
+        }}
         type="text"
-        value={value}
         placeholder="Add a new task..."
         class="flex-1 rounded border border-gray-300 px-3 py-2 text-base focus:border-blue-500 focus:outline-none"
         on={{
-          input: (e: Event) => {
-            value = (e.target as HTMLInputElement).value
-          },
           keydown: (e: KeyboardEvent) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !e.isComposing) {
               handleSubmit()
             }
           },
