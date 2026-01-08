@@ -25,6 +25,7 @@
     "vite": "7.3.0"
   },
   "dependencies": {
-    "@remix-run/component": "0.2.1"
+    "@remix-run/component": "0.2.1",
+    "@remix-run/interaction": "0.3.0"
   }
 }

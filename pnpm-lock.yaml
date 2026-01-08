@@ -11,6 +11,9 @@ importers:
       '@remix-run/component':
         specifier: 0.2.1
         version: 0.2.1
+      '@remix-run/interaction':
+        specifier: 0.3.0
+        version: 0.3.0
     devDependencies:
       '@biomejs/biome':
         specifier: 2.3.11
