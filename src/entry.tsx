@@ -6,73 +6,16 @@ import TaskInput from './components/TaskInput'
 import TaskList from './components/TaskList'
 import ThemeProvider from './components/ThemeProvider'
 import ThemeToggle from './components/ThemeToggle'
-import type { FilterType, Task } from './types'
+import { TaskViewModel } from './stores/TaskViewModel'
 
 function App(this: Handle) {
-  let tasks: Task[] = []
-  let nextId = 1
-  let filter: FilterType = 'all'
-  let isLoading = true
+  const vm = new TaskViewModel()
 
-  // 初期タスクをサーバーから読み込む
-  fetch('/initial-tasks.json')
-    .then((res) => res.json() as Promise<{ tasks: Task[]; nextId: number }>)
-    .then((data) => {
-      tasks = data.tasks
-      nextId = data.nextId
-      isLoading = false
-      this.update()
-    })
+  // 変更を購読
+  this.on(vm, { change: () => this.update() })
 
-  const addTask = (title: string) => {
-    tasks.push({ id: nextId++, title, completed: false })
-    this.update()
-  }
-
-  const toggleTask = (id: number) => {
-    const task = tasks.find((t) => t.id === id)
-    if (task) {
-      task.completed = !task.completed
-      this.update()
-    }
-  }
-
-  const deleteTask = (id: number) => {
-    tasks = tasks.filter((t) => t.id !== id)
-    this.update()
-  }
-
-  const editTask = (id: number, title: string) => {
-    const task = tasks.find((t) => t.id === id)
-    if (task) {
-      task.title = title
-      this.update()
-    }
-  }
-
-  const setFilter = (newFilter: FilterType) => {
-    filter = newFilter
-    this.update()
-  }
-
-  const clearCompleted = () => {
-    tasks = tasks.filter((t) => !t.completed)
-    this.update()
-  }
-
-  const getFilteredTasks = (): Task[] => {
-    switch (filter) {
-      case 'active':
-        return tasks.filter((t) => !t.completed)
-      case 'completed':
-        return tasks.filter((t) => t.completed)
-      default:
-        return tasks
-    }
-  }
-
-  const getActiveCount = () => tasks.filter((t) => !t.completed).length
-  const hasCompleted = () => tasks.some((t) => t.completed)
+  // 初期ロード
+  vm.load()
 
   return () => (
     <ThemeProvider>
@@ -82,24 +25,24 @@ function App(this: Handle) {
           <ThemeToggle />
         </div>
 
-        {isLoading ? (
+        {vm.isLoading ? (
           <p class="text-center text-gray-500">読み込み中...</p>
         ) : (
           <>
-            <TaskInput onAdd={addTask} />
-            <TaskFilter current={filter} onChange={setFilter} />
+            <TaskInput onAdd={(title) => vm.addTask(title)} />
+            <TaskFilter current={vm.filter} onChange={(f) => vm.setFilter(f)} />
             <TaskList
-              tasks={getFilteredTasks()}
-              onToggle={toggleTask}
-              onDelete={deleteTask}
-              onEdit={editTask}
+              tasks={vm.filteredTasks}
+              onToggle={(id) => vm.toggleTask(id)}
+              onDelete={(id) => vm.deleteTask(id)}
+              onEdit={(id, title) => vm.editTask(id, title)}
             />
 
-            {tasks.length > 0 && (
+            {vm.tasks.length > 0 && (
               <TaskFooter
-                activeCount={getActiveCount()}
-                hasCompleted={hasCompleted()}
-                onClearCompleted={clearCompleted}
+                activeCount={vm.activeCount}
+                hasCompleted={vm.hasCompleted}
+                onClearCompleted={() => vm.clearCompleted()}
               />
             )}
           </>
