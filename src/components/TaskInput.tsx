@@ -1,4 +1,5 @@
 import type { Handle } from '@remix-run/component'
+import { press } from '@remix-run/interaction/press'
 
 interface Props {
   onAdd: (title: string) => void
@@ -34,7 +35,7 @@ export default function TaskInput(this: Handle, { onAdd }: Props) {
       <button
         type="button"
         class="cursor-pointer rounded bg-green-500 px-5 py-2 text-base font-medium text-white hover:bg-green-600"
-        on={{ click: handleSubmit }}
+        on={{ [press]: handleSubmit }}
       >
         Add
       </button>

@@ -16,8 +16,8 @@ function App(this: Handle) {
 
   // 初期タスクをサーバーから読み込む
   fetch('/initial-tasks.json')
-    .then((res) => res.json())
-    .then((data: { tasks: Task[]; nextId: number }) => {
+    .then((res) => res.json() as Promise<{ tasks: Task[]; nextId: number }>)
+    .then((data) => {
       tasks = data.tasks
       nextId = data.nextId
       isLoading = false
@@ -40,6 +40,14 @@ function App(this: Handle) {
   const deleteTask = (id: number) => {
     tasks = tasks.filter((t) => t.id !== id)
     this.update()
+  }
+
+  const editTask = (id: number, title: string) => {
+    const task = tasks.find((t) => t.id === id)
+    if (task) {
+      task.title = title
+      this.update()
+    }
   }
 
   const setFilter = (newFilter: FilterType) => {
@@ -84,6 +92,7 @@ function App(this: Handle) {
               tasks={getFilteredTasks()}
               onToggle={toggleTask}
               onDelete={deleteTask}
+              onEdit={editTask}
             />
 
             {tasks.length > 0 && (
@@ -100,5 +109,4 @@ function App(this: Handle) {
   )
 }
 
-// biome-ignore lint/style/noNonNullAssertion: This is the entry point
 createRoot(document.getElementById('root')!).render(<App />)
