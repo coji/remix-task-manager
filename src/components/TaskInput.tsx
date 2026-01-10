@@ -12,6 +12,7 @@ export default function TaskInput(this: Handle, { onAdd }: Props) {
     if (inputEl?.value.trim()) {
       onAdd(inputEl.value.trim())
       inputEl.value = ''
+      inputEl?.focus()
     }
   }
 

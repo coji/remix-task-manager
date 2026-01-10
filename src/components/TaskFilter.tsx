@@ -14,7 +14,7 @@ export default function TaskFilter(this: Handle) {
       {FILTERS.map((filter) => (
         <button
           type="button"
-          class={`cursor-pointer rounded border px-3 py-1.5 ${
+          class={`cursor-pointer rounded border px-2 py-0.5 text-sm ${
             current === filter
               ? 'border-blue-500 bg-blue-500 text-white'
               : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-100'

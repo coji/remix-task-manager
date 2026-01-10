@@ -6,7 +6,7 @@ interface Props {
 
 export default function TaskFooter() {
   return ({ activeCount, hasCompleted, onClearCompleted }: Props) => (
-    <div class="mt-4 flex items-center justify-between border-t border-gray-200 pt-4 text-gray-600 dark:border-gray-700 dark:text-gray-400">
+    <div class="mt-4 flex items-center justify-between pt-4 text-gray-600 dark:text-gray-400">
       <span>
         {activeCount} item{activeCount !== 1 ? 's' : ''} left
       </span>
