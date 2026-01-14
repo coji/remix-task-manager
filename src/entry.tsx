@@ -6,6 +6,7 @@ import TaskInput from './components/TaskInput'
 import TaskList from './components/TaskList'
 import ThemeProvider from './components/ThemeProvider'
 import ThemeToggle from './components/ThemeToggle'
+import GitHubLink from './components/GitHubLink'
 import { TaskViewModel } from './stores/TaskViewModel'
 
 function App(this: Handle) {
@@ -22,7 +23,10 @@ function App(this: Handle) {
       <div class="mx-auto max-w-lg p-5 font-sans">
         <div class="mb-6 flex items-center justify-between">
           <h1 class="text-2xl font-bold">Remix Task Manager</h1>
-          <ThemeToggle />
+          <div class="flex items-center gap-2">
+            <GitHubLink />
+            <ThemeToggle />
+          </div>
         </div>
 
         {vm.isLoading ? (
