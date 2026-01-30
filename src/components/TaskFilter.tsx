@@ -1,4 +1,5 @@
 import type { Handle } from '@remix-run/component'
+import { layoutSpring } from '../lib/animations'
 import type { FilterType } from '../types'
 
 interface Props {
@@ -10,14 +11,30 @@ const FILTERS: FilterType[] = ['all', 'active', 'completed']
 
 export default function TaskFilter(_handle: Handle) {
   return ({ current, onChange }: Props) => (
-    <div class="mb-4 flex gap-2">
+    <div class="relative mb-4 flex gap-1 rounded-lg bg-gray-100 p-1 dark:bg-gray-800">
+      {/* スライドするハイライト */}
+      {FILTERS.map(
+        (filter) =>
+          current === filter && (
+            <div
+              key="highlight"
+              class="absolute inset-y-1 rounded-md bg-white shadow-sm dark:bg-gray-600"
+              style={{
+                width: 'calc((100% - 0.5rem) / 3)',
+                left: `calc(${FILTERS.indexOf(filter)} * (100% - 0.5rem) / 3 + 0.25rem)`,
+              }}
+              animate={layoutSpring}
+            />
+          ),
+      )}
+      {/* ボタン */}
       {FILTERS.map((filter) => (
         <button
           type="button"
-          class={`cursor-pointer rounded border px-2 py-0.5 text-sm ${
+          class={`relative z-10 flex-1 cursor-pointer rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
             current === filter
-              ? 'border-blue-500 bg-blue-500 text-white'
-              : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-100'
+              ? 'text-gray-900 dark:text-white'
+              : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
           }`}
           on={{ click: () => onChange(filter) }}
         >
