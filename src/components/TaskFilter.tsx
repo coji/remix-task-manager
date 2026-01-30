@@ -11,14 +11,14 @@ const FILTERS: FilterType[] = ['all', 'active', 'completed']
 
 export default function TaskFilter(_handle: Handle) {
   return ({ current, onChange }: Props) => (
-    <div class="relative mb-4 flex gap-1 rounded-lg bg-gray-100 p-1 dark:bg-gray-800">
+    <div class="border-border bg-surface-stronger relative mb-4 flex gap-1 rounded-[11px] border p-1">
       {/* スライドするハイライト */}
       {FILTERS.map(
         (filter) =>
           current === filter && (
             <div
               key="highlight"
-              class="absolute inset-y-1 rounded-md bg-white shadow-sm dark:bg-gray-600"
+              class="border-border bg-surface-strong shadow-pill absolute inset-y-1 rounded-lg border"
               style={{
                 width: 'calc((100% - 0.5rem) / 3)',
                 left: `calc(${FILTERS.indexOf(filter)} * (100% - 0.5rem) / 3 + 0.25rem)`,
@@ -32,9 +32,7 @@ export default function TaskFilter(_handle: Handle) {
         <button
           type="button"
           class={`relative z-10 flex-1 cursor-pointer rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-            current === filter
-              ? 'text-gray-900 dark:text-white'
-              : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+            current === filter ? 'text-text' : 'text-muted hover:text-text'
           }`}
           on={{ click: () => onChange(filter) }}
         >

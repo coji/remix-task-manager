@@ -11,7 +11,7 @@ export default function ThemeToggle(handle: Handle) {
   return () => (
     <button
       type="button"
-      class="relative flex h-8 w-10 cursor-pointer items-center justify-center overflow-hidden rounded border border-gray-300 text-sm hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-700"
+      class="border-border bg-surface-stronger text-muted hover:border-accent-border hover:bg-surface-soft hover:text-text relative inline-flex h-8 w-9 cursor-pointer items-center justify-center overflow-hidden rounded-xl border text-sm transition"
       on={{ click: () => theme.toggle() }}
     >
       {theme.value === 'light' ? (

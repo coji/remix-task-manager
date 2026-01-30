@@ -25,16 +25,14 @@ export default function TaskInput(handle: Handle, setup: SetupType) {
         }}
         type="text"
         placeholder="Add a new task..."
-        class="flex-1 rounded border-2 border-gray-300 bg-white px-3 py-2 text-base text-gray-800 placeholder-gray-400 focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 dark:focus:border-blue-400"
+        class="border-border bg-surface-strong text-text placeholder:text-placeholder focus:border-ring focus:shadow-ring flex-1 rounded-xl border px-3 py-2.25 text-[14px] focus:outline-none"
         style={{
           transition: spring.transition(
             ['transform', 'box-shadow', 'border-color'],
             'snappy',
           ),
           transform: isFocused ? 'scale(1.02)' : 'scale(1)',
-          boxShadow: isFocused
-            ? '0 4px 12px rgba(59, 130, 246, 0.25)'
-            : '0 0 0 transparent',
+          boxShadow: isFocused ? 'var(--shadow-ring)' : '0 0 0 transparent',
         }}
         on={{
           focus: () => {
@@ -54,7 +52,7 @@ export default function TaskInput(handle: Handle, setup: SetupType) {
       />
       <button
         type="button"
-        class="cursor-pointer rounded bg-green-500 px-5 py-2 text-base font-medium text-white hover:bg-green-600"
+        class="bg-accent shadow-accent hover:bg-accent-strong cursor-pointer rounded-[9px] px-5 py-1.75 text-[13px] font-semibold text-white transition active:translate-y-px"
         on={{ [press]: handleSubmit }}
       >
         Add

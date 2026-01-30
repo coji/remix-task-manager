@@ -55,13 +55,13 @@ export default function TaskItem(handle: Handle) {
         rowEl = el
       }}
       tabindex={0}
-      class="flex items-center gap-3 border-b border-gray-200 py-3 outline-none focus:bg-gray-100 dark:border-gray-700 dark:focus:bg-gray-800"
+      class="border-border-soft hover:bg-surface-weak focus:bg-surface-stronger flex items-center gap-3 border-b py-2.5 transition outline-none"
       animate={animations.slideIn}
     >
       <input
         type="checkbox"
         checked={task.completed}
-        class="h-5 w-5 cursor-pointer accent-blue-500"
+        class="accent-accent h-5 w-5 cursor-pointer"
         style={{
           transition: spring.transition('transform', 'bouncy'),
           transform: task.completed ? 'scale(1.2)' : 'scale(1)',
@@ -75,7 +75,7 @@ export default function TaskItem(handle: Handle) {
           }}
           type="text"
           value={editValue}
-          class="flex-1 rounded border border-blue-500 px-2 py-1 text-base focus:outline-none"
+          class="border-border bg-surface-strong text-text focus:border-ring focus:shadow-ring flex-1 rounded-xl border px-3 py-1.75 text-[14px] focus:outline-none"
           on={{
             input: (e: Event) => {
               editValue = (e.target as HTMLInputElement).value
@@ -93,7 +93,7 @@ export default function TaskItem(handle: Handle) {
       ) : (
         <span
           class={`flex-1 cursor-pointer text-base select-none ${
-            task.completed ? 'text-gray-400 line-through' : ''
+            task.completed ? 'text-muted line-through' : ''
           }`}
           on={{
             [longPress]: (e: Event) => {
@@ -108,7 +108,7 @@ export default function TaskItem(handle: Handle) {
       )}
       <button
         type="button"
-        class="cursor-pointer rounded bg-red-500 px-2 py-1 text-sm text-white hover:bg-red-600"
+        class="text-muted hover:border-danger-border hover:bg-danger-soft hover:text-danger cursor-pointer rounded-[9px] border border-transparent px-2 py-1 text-[13px] font-semibold transition active:translate-y-px"
         on={{ [press]: () => handleDelete(task.id, onDelete) }}
       >
         Delete

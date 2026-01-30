@@ -25,7 +25,7 @@ export default function TaskFooter(handle: Handle) {
     }
 
     return (
-      <div class="mt-4 flex items-center justify-between pt-4 text-gray-600 dark:text-gray-400">
+      <div class="text-muted mt-4 flex items-center justify-between pt-4 text-sm">
         <span>
           {displayCount} item{displayCount !== 1 ? 's' : ''} left
         </span>
@@ -33,7 +33,7 @@ export default function TaskFooter(handle: Handle) {
           <button
             key="clear-btn"
             type="button"
-            class="cursor-pointer rounded bg-gray-500 px-3 py-1.5 text-white hover:bg-gray-600"
+            class="text-muted hover:border-border hover:bg-surface-soft hover:text-text cursor-pointer rounded-[9px] border border-transparent px-3 py-1.5 text-[13px] font-semibold transition active:translate-y-px"
             on={{ click: onClearCompleted }}
             animate={animations.fadeInOut}
           >
