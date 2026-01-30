@@ -1,5 +1,6 @@
-import type { Handle } from '@remix-run/component'
+import { spring, type Handle } from '@remix-run/component'
 import { longPress, press } from '@remix-run/interaction/press'
+import { animations, runDeleteAnimation } from '../lib/animations'
 import type { Task } from '../types'
 
 interface Props {
@@ -13,6 +14,18 @@ export default function TaskItem(handle: Handle) {
   let isEditing = false
   let editValue = ''
   let inputEl: HTMLInputElement | null = null
+  let rowEl: HTMLLIElement | null = null
+  let isDeleting = false
+
+  const handleDelete = (id: number, onDelete: Props['onDelete']) => {
+    if (isDeleting) return
+    if (!rowEl) {
+      onDelete(id)
+      return
+    }
+    isDeleting = true
+    runDeleteAnimation(handle, rowEl, () => onDelete(id))
+  }
 
   const startEdit = (title: string) => {
     isEditing = true
@@ -38,13 +51,21 @@ export default function TaskItem(handle: Handle) {
 
   return ({ task, onToggle, onDelete, onEdit }: Props) => (
     <li
+      connect={(el: HTMLLIElement) => {
+        rowEl = el
+      }}
       tabindex={0}
       class="flex items-center gap-3 border-b border-gray-200 py-3 outline-none focus:bg-gray-100 dark:border-gray-700 dark:focus:bg-gray-800"
+      animate={animations.slideIn}
     >
       <input
         type="checkbox"
         checked={task.completed}
         class="h-5 w-5 cursor-pointer accent-blue-500"
+        style={{
+          transition: spring.transition('transform', 'bouncy'),
+          transform: task.completed ? 'scale(1.2)' : 'scale(1)',
+        }}
         on={{ change: () => onToggle(task.id) }}
       />
       {isEditing ? (
@@ -88,7 +109,7 @@ export default function TaskItem(handle: Handle) {
       <button
         type="button"
         class="cursor-pointer rounded bg-red-500 px-2 py-1 text-sm text-white hover:bg-red-600"
-        on={{ [press]: () => onDelete(task.id) }}
+        on={{ [press]: () => handleDelete(task.id, onDelete) }}
       >
         Delete
       </button>

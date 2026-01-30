@@ -14,7 +14,7 @@ export default function ThemeProvider(handle: Handle<ThemeStore>) {
 
   return ({ children }: Props) => (
     <div
-      class={`min-h-screen ${theme.value === 'light' ? 'bg-white text-gray-800' : 'bg-gray-900 text-white'}`}
+      class={`min-h-screen transition-colors duration-300 ${theme.value === 'light' ? 'bg-white text-gray-800' : 'bg-gray-900 text-white'}`}
     >
       {children}
     </div>
