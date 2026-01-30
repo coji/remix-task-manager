@@ -10,7 +10,7 @@ interface Props {
   onEdit: (id: number, title: string) => void
 }
 
-export default function TaskList(this: Handle) {
+export default function TaskList(_handle: Handle) {
   let listEl: HTMLUListElement | null = null
 
   const handleArrowUp = () => {

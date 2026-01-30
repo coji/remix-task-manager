@@ -8,7 +8,7 @@ interface Props {
 
 const FILTERS: FilterType[] = ['all', 'active', 'completed']
 
-export default function TaskFilter(this: Handle) {
+export default function TaskFilter(_handle: Handle) {
   return ({ current, onChange }: Props) => (
     <div class="mb-4 flex gap-2">
       {FILTERS.map((filter) => (

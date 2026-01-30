@@ -5,12 +5,12 @@ interface Props {
   children: RemixNode
 }
 
-export default function ThemeProvider(this: Handle<ThemeStore>) {
+export default function ThemeProvider(handle: Handle<ThemeStore>) {
   const theme = new ThemeStore()
-  this.context.set(theme)
+  handle.context.set(theme)
 
   // テーマ変更時に再レンダリング
-  this.on(theme, { change: () => this.update() })
+  handle.on(theme, { change: () => handle.update() })
 
   return ({ children }: Props) => (
     <div

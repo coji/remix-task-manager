@@ -1,16 +1,16 @@
 import type { Handle } from '@remix-run/component'
 import { press } from '@remix-run/interaction/press'
 
-interface Props {
+interface SetupType {
   onAdd: (title: string) => void
 }
 
-export default function TaskInput(this: Handle, { onAdd }: Props) {
+export default function TaskInput(_handle: Handle, setup: SetupType) {
   let inputEl: HTMLInputElement | null = null
 
   const handleSubmit = () => {
     if (inputEl?.value.trim()) {
-      onAdd(inputEl.value.trim())
+      setup.onAdd(inputEl.value.trim())
       inputEl.value = ''
       inputEl?.focus()
     }

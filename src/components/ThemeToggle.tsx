@@ -2,11 +2,11 @@ import type { Handle } from '@remix-run/component'
 import type { ThemeStore } from '../stores/ThemeStore'
 import ThemeProvider from './ThemeProvider'
 
-export default function ThemeToggle(this: Handle) {
-  const theme = this.context.get(ThemeProvider) as ThemeStore
+export default function ThemeToggle(handle: Handle) {
+  const theme = handle.context.get(ThemeProvider) as ThemeStore
 
   // テーマ変更を購読
-  this.on(theme, { change: () => this.update() })
+  handle.on(theme, { change: () => handle.update() })
 
   return () => (
     <button
