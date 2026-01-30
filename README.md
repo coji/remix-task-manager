@@ -15,13 +15,13 @@ https://remix-task-manager-eight.vercel.app/
 
 ## Key Differences from React
 
-| What you want | React | Remix 3 |
-|---------------|-------|---------|
-| State | `useState` (auto re-render) | Plain variables |
-| Re-render | Automatic (batched) | Manual `this.update()` |
-| Side effects | `useEffect` with deps array | Just write it |
-| Cleanup | Return function | `AbortSignal` |
-| Shared state | Context (auto re-render) | `EventTarget` + `this.on()` |
+| What you want | React                       | Remix 3                     |
+| ------------- | --------------------------- | --------------------------- |
+| State         | `useState` (auto re-render) | Plain variables             |
+| Re-render     | Automatic (batched)         | Manual `this.update()`      |
+| Side effects  | `useEffect` with deps array | Just write it               |
+| Cleanup       | Return function             | `AbortSignal`               |
+| Shared state  | Context (auto re-render)    | `EventTarget` + `this.on()` |
 
 Remix 3 uses **JavaScript and Web Standards** instead of React-specific patterns.
 

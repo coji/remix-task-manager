@@ -1,19 +1,19 @@
 import { createRoot, type Handle } from '@remix-run/component'
 import './app.css'
+import GitHubLink from './components/GitHubLink'
 import TaskFilter from './components/TaskFilter'
 import TaskFooter from './components/TaskFooter'
 import TaskInput from './components/TaskInput'
 import TaskList from './components/TaskList'
 import ThemeProvider from './components/ThemeProvider'
 import ThemeToggle from './components/ThemeToggle'
-import GitHubLink from './components/GitHubLink'
 import { TaskViewModel } from './stores/TaskViewModel'
 
-function App(this: Handle) {
+function App(handle: Handle) {
   const vm = new TaskViewModel()
 
   // 変更を購読
-  this.on(vm, { change: () => this.update() })
+  handle.on(vm, { change: () => handle.update() })
 
   // 初期ロード
   vm.load()
@@ -33,7 +33,7 @@ function App(this: Handle) {
           <p class="text-center text-gray-500">読み込み中...</p>
         ) : (
           <>
-            <TaskInput onAdd={(title) => vm.addTask(title)} />
+            <TaskInput setup={{ onAdd: (title) => vm.addTask(title) }} />
             <TaskFilter current={vm.filter} onChange={(f) => vm.setFilter(f)} />
             <TaskList
               tasks={vm.filteredTasks}

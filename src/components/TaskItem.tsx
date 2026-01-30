@@ -9,7 +9,7 @@ interface Props {
   onEdit: (id: number, title: string) => void
 }
 
-export default function TaskItem(this: Handle) {
+export default function TaskItem(handle: Handle) {
   let isEditing = false
   let editValue = ''
   let inputEl: HTMLInputElement | null = null
@@ -17,7 +17,7 @@ export default function TaskItem(this: Handle) {
   const startEdit = (title: string) => {
     isEditing = true
     editValue = title
-    this.update(() => {
+    handle.update(() => {
       inputEl?.focus()
       inputEl?.select()
     })
@@ -25,7 +25,7 @@ export default function TaskItem(this: Handle) {
 
   const cancelEdit = () => {
     isEditing = false
-    this.update()
+    handle.update()
   }
 
   const confirmEdit = (id: number, onEdit: Props['onEdit']) => {
@@ -33,7 +33,7 @@ export default function TaskItem(this: Handle) {
       onEdit(id, editValue.trim())
     }
     isEditing = false
-    this.update()
+    handle.update()
   }
 
   return ({ task, onToggle, onDelete, onEdit }: Props) => (

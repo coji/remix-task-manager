@@ -19,6 +19,7 @@ This is a task manager app built with `@remix-run/component` - an experimental c
 ### Key Pattern: Remix Component Model
 
 Components use `function ComponentName(this: Handle)` syntax:
+
 - State is declared as local variables
 - Call `this.update()` after state changes to trigger re-render
 - Return a render function `() => (<JSX />)` instead of JSX directly
