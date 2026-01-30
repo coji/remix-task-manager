@@ -1,4 +1,4 @@
-import { tween, easings, spring, type Handle } from '@remix-run/component'
+import { easings, spring, tween, type Handle } from '@remix-run/component'
 
 // よく使うアニメーション定義
 export const animations = {

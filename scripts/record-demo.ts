@@ -40,10 +40,12 @@ async function main() {
         await page.goto(BASE_URL)
         await page.waitForSelector('h1')
         await sleep(800)
-        const input = page.locator('input[type="text"]')
+        const input = page.locator('input[placeholder="Add a new task..."]')
+        await input.click()
+        await sleep(300)
         await input.fill('New task from Playwright')
         await sleep(400)
-        await page.keyboard.press('Enter')
+        await page.click('button:has-text("Add")')
         await sleep(1000)
       },
     },
@@ -95,10 +97,12 @@ async function main() {
         await page.goto(BASE_URL)
         await page.waitForSelector('h1')
         await sleep(600)
-        await page.click('button:has-text("🌙"), button:has-text("☀️")')
-        await sleep(800)
-        await page.click('button:has-text("🌙"), button:has-text("☀️")')
-        await sleep(800)
+        // ThemeToggle ボタンは GitHubLink の隣にある2番目のボタン
+        const themeBtn = page.locator('button').filter({ has: page.locator('span.absolute') })
+        await themeBtn.click()
+        await sleep(1000)
+        await themeBtn.click()
+        await sleep(1000)
       },
     },
     {
@@ -108,10 +112,11 @@ async function main() {
         await page.goto(BASE_URL)
         await page.waitForSelector('h1')
         await sleep(600)
-        const input = page.locator('input[type="text"]')
-        await input.focus()
+        const input = page.locator('input[placeholder="Add a new task..."]')
+        await input.click()
         await sleep(800)
-        await input.blur()
+        // 別の場所をクリックしてフォーカスを外す
+        await page.click('h1')
         await sleep(600)
       },
     },
@@ -119,7 +124,9 @@ async function main() {
 
   for (let i = 0; i < scenarios.length; i++) {
     const scenario = scenarios[i]
-    console.log(`📹 ${i + 1}/${scenarios.length}: ${scenario.name} (${scenario.desc})`)
+    console.log(
+      `📹 ${i + 1}/${scenarios.length}: ${scenario.name} (${scenario.desc})`,
+    )
 
     // 動画録画付きでコンテキスト作成
     const context = await browser.newContext({

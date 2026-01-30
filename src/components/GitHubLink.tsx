@@ -4,7 +4,7 @@ export default function GitHubLink() {
       href="https://github.com/coji/remix-task-manager"
       target="_blank"
       rel="noopener noreferrer"
-      class="rounded p-1.5 text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+      class="border-border bg-surface-stronger text-muted hover:border-accent-border hover:bg-surface-soft hover:text-text inline-flex h-8 w-9 items-center justify-center rounded-xl border transition"
       aria-label="GitHub Repository"
     >
       <span class="sr-only">GitHub Repository</span>
